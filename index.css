@@ -1,0 +1,103 @@
+/*****License*******************************************************************
+**  TES286 Drive Panel                                                        **
+**  Copyright (C) 2016-2022  TES286                                           **
+**  This program is free software: you can redistribute it and/or modify      **
+**  it under the terms of the GNU General Public License as published by      **
+**  the Free Software Foundation, either version 3 of the License, or         **
+**  (at your option) any later version.                                       **
+**                                                                            **
+**  This program is distributed in the hope that it will be useful,           **
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of            **
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             **
+**  GNU General Public License for more details.                              **
+********************************************************************************/
+
+.no-login {
+    display: none;
+}
+
+.had-login {
+    display: none;
+}
+
+.show-alone {
+    display: none;
+}
+
+.show-mutil {
+    display: none;
+}
+
+.show-default {
+    display: block;
+}
+
+.log-group {
+    position: fixed;
+    top: 70px;
+    right: 0px;
+    width: 300px;
+}
+
+.log {
+    /* 宽度 */
+    width: 300px;
+    /* 高度 */
+    height: auto;
+    display: block;
+    /* 换行 */
+    word-break: break-word;
+    /* 文本行的任意字内断开 */
+    word-wrap: break-word;
+    /* IE */
+    white-space: -moz-pre-wrap;
+    /* Mozilla */
+    white-space: -hp-pre-wrap;
+    /* HP printers */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    white-space: -pre-wrap;
+    /* Opera 4-6 */
+    white-space: pre;
+    /* CSS2 */
+    white-space: pre-wrap;
+    /* CSS 2.1 */
+    white-space: pre-line;
+    /* CSS 3 (and 2.1 as well, actually) */
+}
+
+.log-btn-close {
+    position: relative;
+    float: right;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    color: black;
+    background-color: rgba(0, 0, 0, 0.1);
+    /* 无边框 */
+    border: none;
+    /* 圆角 */
+    border-radius: 50%;
+    /* 字体居中 */
+    text-align: center;
+    /* 上下居中 */
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+.log-btn-close :hover {
+    cursor: pointer;
+}
+
+.log-btn-close ::before {
+    content: "x";
+}
+
+.file-item :hover {
+    cursor: pointer;
+}
+
+.breadcrumb>li :hover {
+    cursor: pointer;
+}

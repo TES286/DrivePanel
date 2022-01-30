@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!----License---------------------------------------------------------------------
+--  TES286 Drive Panel                                                          --
+--  Copyright (C) 2016-2022  TES286                                             --
+--  This program is free software: you can redistribute it and/or modify        --
+--  it under the terms of the GNU General Public License as published by        --
+--  the Free Software Foundation, either version 3 of the License, or           --
+--  (at your option) any later version.                                         --
+--                                                                              --
+--  This program is distributed in the hope that it will be useful,             --
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of              --
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               --
+--  GNU General Public License for more details.                                --
+--------------------------------------------------------------------------------->
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="TES286" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TES286 Drive Panel" />
+    <title>TES286 Drive Panel</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://share.xn--4gq.cn.eu.org/EcgamA_FLhBBuHKY0IXhV2wBEfcq4hsKbr62o_8_B2agTA" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" media="all" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" media="async" />
+    <link rel="stylesheet" href="index.css" media="all" />
+    <script data-cfasync="false" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" async="async"></script>
+    <script src="https://cdn.jsdelivr.net/npm/node-forge@1.2.1/dist/forge.min.js" async="async"></script>
+    <script src="https://hm.baidu.com/hm.js?a763a746dfb5a5a8a830a184931a2e8f" async="async"></script>
+    <script src="https://www.googletagmanager.com/gtag/js?id=G-P0D0K5QM78" async="async"></script>
+    <script data-cfasync="false" src="index.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#headers-navbar">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://drivepanel.tes286.top/">TES286 Drive Panel</a>
+            </div>
+            <div class="collapse navbar-collapse" id="headers-navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="https://drivepanel.tes286.top/">Panel</a></li>
+                    <li><a href="https://drivepanel.tes286.top/shareView.html">Share View(Personal
+                            Only)</a></li>
+                    <li><a href="https://drivepanel.tes286.top/License.html">License</a></li>
+                    <p class="navbar-text">Onedrive为Microsoft产品,与本站无关,最终仍使用Microsoft的api获取内容</p>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="height: 60px;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">登录信息</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="no-login">
+                            您还没有登录,请登录后使用
+                            <button class="btn btn-primary" id="login-button">登录</button>
+                        </div>
+                        <div class="had-login">
+                            <p style="display: inline;">用户名: </p>
+                            <div id="username" style="display: inline;">(未知)</div>
+                            <button class="btn btn-danger" id="logout-button">注销</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 主体(登录可见) -->
+        <div class="had-login">
+            <!-- 操作面板 -->
+            <div id="work-panel" class="btn-group">
+                <!-- 新建 (任何时候都有) -->
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    新建
+                    <span class="caret"></span>
+                </button>
+                <button type="button" class="btn btn-default" onclick="javascript:event_refresh()">刷新</button>
+                <!-- 默认情况 show-defult -->
+                <!-- ( 上传 ) -->
+                <!-- 单独选择 show-alone -->
+                <!-- ( 共享 复制链接 下载 删除 重命名 移动到 复制到 ) -->
+                <!-- 多选     show-mutil -->
+                <!-- ( 下载 删除 移动到 复制到 ) -->
+                <button type="button" class="btn btn-default show-default" onclick="javascript:event_upload()">上传</button>
+                <button type="button" class="btn btn-default show-default show-personal" onclick="javascript:event_offline_download()">离线下载</button>
+                <button type="button" class="btn btn-default show-alone" onclick="javascript:event_share()">共享</button>
+                <button type="button" class="btn btn-default show-alone" onclick="javascript:event_download()">下载</button>
+                <button type="button" class="btn btn-default show-alone show-mutil" onclick="javascript:event_delete()">删除</button>
+                <button type="button" class="btn btn-default show-alone" onclick="javascript:event_rename()">重命名</button>
+                <button type="button" class="btn btn-default show-alone show-mutil" onclick="javascript:event_move()">移动到</button>
+                <button type="button" class="btn btn-default show-alone show-mutil" onclick="javascript:event_copy()">复制到</button>
+                <ul class="dropdown-menu">
+                    <li><a id="new-folder" onclick="javascript:event_new_folder()">文件夹</a></li>
+                    <li><a id="new-file" onclick="javascript:event_new_file()">文件</a></li>
+                </ul>
+            </div>
+            <!-- 面包屑导航 -->
+            <div id="breadcrumb" class="breadcrumb">
+                <li onclick="javascript:event_bread_change(this)" data-path="/">
+                    (根目录)
+                </li>
+            </div>
+            <!-- 文件列表 -->
+            <div id="file-list" class="collapse in table-responsive">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width: 30px;">
+                                <input type="checkbox" id="check-all" onclick="javascript:event_check_all(this)">
+                            </th>
+                            <th style="width: 30px;"></th>
+                            <th style="width: auto;">名称</th>
+                            <th style="width: 10%;">修改者</th>
+                            <th style="width: 10%;">文件大小</th>
+                        </tr>
+                    </thead>
+                    <tbody id='FileTable'>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 说明(未登录可见) -->
+        <div class="row no-login">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">说明</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h4 class="text-center text-primary">
+                            TES286 Drive Panel
+                        </h4>
+                        <a href="https://github.com/TES286/DrivePanel/issues"><img src="https://img.shields.io/github/issues/TES286/DrivePanel?style=flat-square"></a>
+                        <a href="https://github.com/TES286/DrivePanel/network"><img src="https://img.shields.io/github/forks/TES286/DrivePanel?style=flat-square"></a>
+                        <a href="https://github.com/TES286/DrivePanel/stargazers"><img src="https://img.shields.io/github/stars/TES286/DrivePanel?style=flat-square"></a>
+                        <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/TES286/DrivePanel?style=flat-square">
+                        <a href="https://drivepanel.tes286.top/License.html"><img src="https://img.shields.io/badge/License-GPLv3-blue?style=flat-square" /></a>
+
+                        <p>
+                            本项目是一个用于查看OneDrive文件的面板,可以查看文件夹内容,并可以进行文件的上传,下载,删除,重命名,移动,复制等操作.
+                        </p>
+                        <p>
+                            本项目使用的是OneDrive的api,所以需要使用OneDrive的账号登录,并且需要使用OneDrive的api权限.
+                        </p>
+                        <p>
+                            本项目可以有效解决官方网站无法打开的问题,并且还扩展了部分功能.
+                        </p>
+                        <p>
+                            项目开源,可以在 <a href="https://github.com/TES286/DrivePanel">https://github.com/TES286/DrivePanel</a> 上找到.
+                        </p>
+                        <p>
+                            如果有什么问题,可以在 <a href="https://github.com/TES286/DrivePanel/issues"> 此处 </a> 提交, 或者发送邮件到 <a href="mailto:tes286@tes286.top">tes286@tes286.top</a>
+                        </p>
+                        <p>
+                            如果你有什么好的想法, 欢迎Pull Request.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 日志区 -->
+    <!-- 样式: alert, 右上角浮动, 默认隐藏 -->
+    <div class="log-group" id="log-group">
+        <div id="log-count" style="display: none;" data-log-count="0"></div>
+    </div>
+</body>
